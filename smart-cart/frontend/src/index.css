@@ -1,0 +1,325 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --page: 238 242 241;
+  --surface: 255 255 255;
+  --raised: 247 249 248;
+  --line: 217 225 223;
+  --ink: 17 26 38;
+  --muted: 88 102 112;
+  --brand: 14 124 123;
+  --on-brand: 255 255 255;
+  --sun: 255 183 3;
+  --sun-soft: 255 245 214;
+  --danger: 190 38 60;
+}
+
+.dark {
+  --page: 11 17 24;
+  --surface: 18 27 38;
+  --raised: 25 36 50;
+  --line: 40 54 70;
+  --ink: 232 238 241;
+  --muted: 150 165 176;
+  --brand: 45 190 183;
+  --on-brand: 6 28 30;
+  --sun: 255 196 61;
+  --sun-soft: 56 45 14;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-page font-sans text-ink antialiased;
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-page;
+  }
+
+  button,
+  input {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand text-onbrand hover:brightness-110;
+  }
+
+  .btn-ghost {
+    @apply btn border border-line bg-surface text-ink hover:bg-raised;
+  }
+
+  .field {
+    @apply w-full rounded-lg border border-line bg-surface px-3 py-2.5 text-sm text-ink placeholder:text-muted;
+  }
+
+  .field[aria-invalid='true'] {
+    @apply border-danger;
+  }
+
+  .card {
+    @apply rounded-xl border border-line bg-surface;
+  }
+}
+
+/* Authentication navigation */
+.auth-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px clamp(20px, 10%, 160px);
+  border-bottom: 1px solid rgb(var(--line));
+  background: rgb(var(--surface));
+  color: rgb(var(--ink));
+}
+
+.auth-navigation span {
+  margin-right: auto;
+  font-size: 14px;
+  color: rgb(var(--muted));
+}
+
+.auth-navigation button {
+  padding: 9px 17px;
+  border: 1px solid rgb(var(--brand));
+  border-radius: 8px;
+  background: rgb(var(--brand));
+  color: rgb(var(--on-brand));
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.auth-navigation button:hover {
+  opacity: 0.9;
+}
+
+.auth-navigation button:active {
+  transform: scale(0.98);
+}
+
+/* Login and registration layout */
+.auth-page {
+  box-sizing: border-box;
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  background: rgb(var(--page));
+  color: rgb(var(--ink));
+}
+
+.auth-card {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(24px, 5vw, 38px);
+  border: 1px solid rgb(var(--line));
+  border-radius: 18px;
+  background: rgb(var(--surface));
+  box-shadow: 0 14px 40px rgb(17 26 38 / 8%);
+}
+
+.dark .auth-card {
+  box-shadow: 0 14px 40px rgb(0 0 0 / 20%);
+}
+
+.auth-card h1 {
+  margin: 0;
+  color: rgb(var(--ink));
+  font-size: clamp(25px, 4vw, 30px);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.auth-card > p {
+  margin: 0 0 12px;
+  color: rgb(var(--muted));
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.auth-card label {
+  margin-top: 4px;
+  color: rgb(var(--ink));
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.auth-card input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 13px;
+  border: 1px solid rgb(var(--line));
+  border-radius: 8px;
+  outline: none;
+  background: rgb(var(--surface));
+  color: rgb(var(--ink));
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-card input::placeholder {
+  color: rgb(var(--muted));
+}
+
+.auth-card input:focus {
+  border-color: rgb(var(--brand));
+  box-shadow: 0 0 0 3px rgb(var(--brand) / 14%);
+}
+
+.auth-card button[type='submit'] {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 10px;
+  padding: 12px 16px;
+  border: 1px solid rgb(var(--brand));
+  border-radius: 9px;
+  background: rgb(var(--brand));
+  color: rgb(var(--on-brand));
+  font-size: 15px;
+  font-weight: 700;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.auth-card button[type='submit']:hover {
+  opacity: 0.92;
+}
+
+.auth-card button[type='submit']:active {
+  transform: scale(0.99);
+}
+
+.auth-card button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.auth-card p:last-child {
+  margin: 12px 0 0;
+  text-align: center;
+  color: rgb(var(--muted));
+  font-size: 14px;
+}
+
+.auth-card p button {
+  padding: 2px 4px;
+  border: none;
+  background: transparent;
+  color: rgb(var(--brand));
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.auth-card p button:hover {
+  text-decoration: underline;
+}
+
+.auth-error {
+  margin: 0 0 8px !important;
+  padding: 11px 13px;
+  border: 1px solid rgb(var(--danger) / 25%);
+  border-radius: 8px;
+  background: rgb(var(--danger) / 8%);
+  color: rgb(var(--danger)) !important;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Responsive layout */
+@media (max-width: 480px) {
+  .auth-navigation {
+    padding: 12px 16px;
+  }
+
+  .auth-page {
+    min-height: 70vh;
+    padding: 28px 16px;
+  }
+
+  .auth-card {
+    padding: 24px 20px;
+    border-radius: 14px;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Cart drawer animation */
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.drawer-in {
+  animation: drawer-in 0.22s ease-out;
+}
+
+/* Toast notification animation */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toast-in {
+  animation: toast-in 0.18s ease-out;
+}
